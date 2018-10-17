@@ -1,3 +1,58 @@
+// Common Classes
+
+.textHeader {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+}
+
+.no-marg {
+  margin: 0;
+}
+
+.marg20 {
+  margin: 20px 0;
+}
+
+.no-pad {
+  padding: 0;
+}
+
+.textStroke__1 {
+  font-size: 12px;
+  color: #787878;
+  font-weight: 600;
+}
+
+.textStroke__2 {
+  font-size: 14px;
+  color: #000000;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.textStroke__3 {
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: 400;
+  margin-left: 10px;
+}
+
+.curr-cta {
+  background: #ff5722;
+  border: 1px solid #ff5722;
+  border-radius: 3px;
+  padding: 10px 20px 10px;
+  transition: all 0.2s linear;
+  outline: none;
+  i {
+    color: #ffffff;
+  }
+  &.hover {
+    background: #ff5722;
+  }
+}
+
 // PageLoader scss starts
 
 .loader {
@@ -72,5 +127,72 @@
     stroke-dashoffset: -65.973;
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
+  }
+}
+
+// Currecny card starts
+
+.currencyHomeContainer {
+  padding: 30px;
+  .shopee-logo__blk {
+    img {
+      width: 180px;
+      height: auto;
+    }
+  }
+  .cur-bg__box {
+    position: relative;
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    transition: all 0.2s linear;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000px;
+    padding: 15px;
+    border-radius: 3px;
+    box-shadow: 0 18px 55px 0 rgba(0, 0, 0, 0.06);
+  }
+  .border-bottom__stroke {
+    border-bottom: 1px solid #acacac;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+  .curr-parent {
+    display: flex;
+    padding: 30px 0 10px;
+    .curr-desc__box {
+      margin: 20px 0;
+      border: 1px solid #000000;
+      padding: 10px;
+      flex: 1 0 0;
+      padding: 5px;
+    }
+    .curr-flex__boxSecond {
+      flex: 0 0 50px;
+      border-left: 0;
+      text-align: center;
+      i {
+        top: 30px;
+        cursor: pointer;
+      }
+    }
+  }
+  .curr-cta__box {
+    .input-group {
+      .form-control {
+        height: 42px;
+        border-radius: 0;
+        box-shadow: 0 18px 55px 0 rgba(0, 0, 0, 0.06);
+      }
+      .input-group-btn {
+        .curr-cta {
+          color: #ffffff;
+          font-size: 14px;
+          font-weight: 400;
+          cursor: pointer;
+        }
+      }
+    }
   }
 }
