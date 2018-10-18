@@ -13,33 +13,33 @@ class CurrencyEvaluator extends Component {
       rateList: {},
       baseCurrencyValue: 1,
       loading: true,
+      showCurrencyInput: false,
     };
 
     this.addToCurrencyList = this.addToCurrencyList.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handlebaseCurrencyValueChange = this.handlebaseCurrencyValueChange.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.showCurrencyInput = this.showCurrencyInput.bind(this);
   }
 
   addToCurrencyList(event) {
     event.preventDefault();
-    if (this.state.value && this.state.rateList[this.state.value]) {
-      if (this.state.currenciesList[this.state.value]) {
-        toast.warning('Currency Already Exist.');
+    const { value, rateList, currenciesList } = this.state;
+    if (value && rateList[value]) {
+      if (currenciesList[value]) {
+        toast.warning('Currency already exist in the list.');
         return;
       }
-      const currenciesList = this.state.currenciesList;
-      currenciesList[this.state.value] = this.state.rateList[this.state.value];
-      this.setState({
-        currenciesList,
-        value: '',
-      });
+      const clonedCurrenciesList = Object.assign({}, currenciesList);
+      clonedCurrenciesList[value] = rateList[value];
+      this.setState({ currenciesList: clonedCurrenciesList, value: '' });
     } else {
-      toast.warning('Currency does not Exist.');
+      toast.warning('Currency does not exist in the list.');
     }
   }
   removeItem(currencyKey) {
-    const currenciesList = this.state.currenciesList;
+    const { currenciesList } = this.state;
     delete currenciesList[currencyKey];
     this.setState({ currenciesList });
   }
@@ -48,13 +48,19 @@ class CurrencyEvaluator extends Component {
     this.setState({ value: event.target.value.toUpperCase() });
   }
 
+  showCurrencyInput() {
+    const { showCurrencyInput } = this.state;
+    this.setState({ showCurrencyInput: !showCurrencyInput });
+  }
+
   handlebaseCurrencyValueChange(event) {
     this.setState({ baseCurrencyValue: event.target.value });
   }
 
   componentDidMount() {
+    const { base } = this.state;
     axios
-      .get(`https://api.exchangeratesapi.io/latest?base=${this.state.base}`)
+      .get(`https://api.exchangeratesapi.io/latest?base=${base}`)
       .then(({ data }) => {
         this.setState({ rateList: data.rates, base: data.base, loading: false });
       })
@@ -65,7 +71,8 @@ class CurrencyEvaluator extends Component {
   }
 
   render() {
-    return this.state.loading ? (
+    const { base, baseCurrencyValue, currenciesList, value, loading, showCurrencyInput } = this.state;
+    return loading ? (
       <PageLoader />
     ) : (
       <section className="currencyHomeContainer">
@@ -77,32 +84,27 @@ class CurrencyEvaluator extends Component {
             <div className="col-md-4 col-xs-6 col-md-offset-4">
               <div className="cur-bg__box">
                 <div className="cur-header">
-                  {/* <h1 className="textHeader no-marg">
-                    <i> {this.state.base} </i>
-                  </h1> */}
                   <p className="textStroke__2">
-                    {this.state.base}
+                    {base}
                     <input
                       type="number"
                       className="form-control"
-                      value={this.state.baseCurrencyValue}
+                      value={baseCurrencyValue}
                       onChange={this.handlebaseCurrencyValueChange}
                     />
                   </p>
                   <div className="border-bottom__stroke" />
                 </div>
-                {Object.keys(this.state.currenciesList).map((item, index) => (
+                {Object.keys(currenciesList).map((item, index) => (
                   <div className="curr-parent" key={item}>
                     <div className="curr-desc__box">
                       <p>
                         {item}{' '}
-                        <span className="pull-right">
-                          {(this.state.currenciesList[item] * this.state.baseCurrencyValue).toFixed(4)}
-                        </span>
+                        <span className="pull-right">{(currenciesList[item] * baseCurrencyValue).toFixed(4)}</span>
                       </p>
                       <p>
                         <i>
-                          1 {this.state.base} = {this.state.currenciesList[item]} {item}
+                          1 {base} = {currenciesList[item]} {item}
                         </i>
                       </p>
                     </div>
@@ -112,26 +114,29 @@ class CurrencyEvaluator extends Component {
                   </div>
                 ))}
                 <div className="curr-cta__box text-center">
-                  <button className="curr-cta">
-                    <i className="glyphicon glyphicon-plus" />
-                    <span className="textStroke__3">Add More Currencies</span>
-                  </button>
-                  <form onSubmit={this.addToCurrencyList}>
-                    <div className="input-group marg20">
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={this.state.value}
-                        onChange={this.handleChange}
-                        placeholder="Enter Currencies here"
-                      />
-                      <span className="input-group-btn">
-                        <button type="submit" className="btn curr-cta">
-                          Submit
-                        </button>
-                      </span>
-                    </div>
-                  </form>
+                  {showCurrencyInput ? (
+                    <form onSubmit={this.addToCurrencyList}>
+                      <div className="input-group marg20">
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={value}
+                          onChange={this.handleChange}
+                          placeholder="Enter Currencies here"
+                        />
+                        <span className="input-group-btn">
+                          <button type="submit" className="btn curr-cta">
+                            Submit
+                          </button>
+                        </span>
+                      </div>
+                    </form>
+                  ) : (
+                    <button className="curr-cta" onClick={this.showCurrencyInput}>
+                      <i className="glyphicon glyphicon-plus" />
+                      <span className="textStroke__3">Add More Currencies</span>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
