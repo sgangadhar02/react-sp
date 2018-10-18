@@ -18,10 +18,12 @@
   font-weight: 600; }
 
 .textStroke__2 {
-  font-size: 14px;
+  font-size: 16px;
   color: #000000;
   font-weight: 600;
-  margin: 10px 0; }
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between; }
 
 .textStroke__3 {
   font-size: 14px;
@@ -116,6 +118,8 @@
     padding: 15px;
     border-radius: 3px;
     box-shadow: 0 18px 55px 0 rgba(0, 0, 0, 0.06); }
+    .currencyHomeContainer .cur-bg__box .cur-header .form-control {
+      width: 50%; }
   .currencyHomeContainer .border-bottom__stroke {
     border-bottom: 1px solid #acacac;
     position: absolute;
@@ -123,7 +127,7 @@
     right: 0; }
   .currencyHomeContainer .curr-parent {
     display: flex;
-    padding: 30px 0 10px; }
+    padding: 10px 0 0px; }
     .currencyHomeContainer .curr-parent .curr-desc__box {
       margin: 20px 0;
       border: 1px solid #000000;
@@ -135,14 +139,16 @@
       border-left: 0;
       text-align: center; }
       .currencyHomeContainer .curr-parent .curr-flex__boxSecond i {
-        top: 30px;
+        top: 20px;
         cursor: pointer; }
-  .currencyHomeContainer .curr-cta__box .input-group .form-control {
-    height: 42px;
-    border-radius: 0;
-    box-shadow: 0 18px 55px 0 rgba(0, 0, 0, 0.06); }
-  .currencyHomeContainer .curr-cta__box .input-group .input-group-btn .curr-cta {
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 400;
-    cursor: pointer; }
+  .currencyHomeContainer .curr-cta__box {
+    margin: 50px 0; }
+    .currencyHomeContainer .curr-cta__box .input-group .form-control {
+      height: 42px;
+      border-radius: 0;
+      box-shadow: 0 18px 55px 0 rgba(0, 0, 0, 0.06); }
+    .currencyHomeContainer .curr-cta__box .input-group .input-group-btn .curr-cta {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 400;
+      cursor: pointer; }
