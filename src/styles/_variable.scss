@@ -1,1 +1,32 @@
-$primary-color: green;
+// Colors variables
+
+$base-color1: #787878;
+$base-color2: #000000;
+$base-color3: #ff5722;
+
+$borderstroke1: #e7e7e7;
+$borderstroke2: #acacac;
+
+$bgWhite: #ffffff;
+
+// Transitions & Box Shadow
+
+@mixin transition($transition-property, $transition-time, $method) {
+  -moz-transition: $transition-property $transition-time $method;
+  -ms-transition: $transition-property $transition-time $method;
+  -o-transition: $transition-property $transition-time $method;
+  -webkit-transition: $transition-property $transition-time $method;
+  transition: $transition-property $transition-time $method;
+}
+
+@mixin box-shadow($x, $y, $blur, $spread, $color, $inset: false) {
+  @if $inset {
+    -moz-box-shadow: inset $x $y $blur $spread $color inset;
+    -webkit-box-shadow: inset $x $y $blur $spread $color inset;
+    box-shadow: inset $x $y $blur $spread $color inset;
+  } @else {
+    -moz-box-shadow: $x $y $blur $spread $color;
+    -webkit-box-shadow: $x $y $blur $spread $color;
+    box-shadow: $x $y $blur $spread $color;
+  }
+}
